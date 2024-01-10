@@ -1,0 +1,58 @@
+<!-- include header -->
+<% include("../layouts/_header.ejs") %>
+<!-- include header -->
+
+<h1>Admin Dashboard</h1>
+<a href="/admin/new-user">Add User &nbsp;</a>
+<a href="/admin/export-user">&nbsp; Export User</a>
+<br><br>
+<form action="">
+  <input type="text" placeholder="Search user" name="search">
+  <input type="submit" value="Search">
+</form>
+<br>
+<br>
+<table border="1">
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phome</th>
+    <th>Verify</th>
+    <th>Admin</th>
+    <th>Action</th>
+  </tr>
+  <% if(users.length>0){ 
+    for (let index = 0; index < users.length; index++) { %>
+        <tr>
+            <td><img style="border-radius:50% ;" src="userImages/<%= users[index].image %>" alt="<%=users[index].image %>" height="30px" width="30px"></td>
+            <td><%= users[index].name %></td>
+            <td><%= users[index].email %></td>
+            <td><%= users[index].mobile %></td>
+            <td><%= users[index].is_verified===1?"Verified":"Not verified" %></td>
+            <td><%= users[index].is_admin===1?"Yes":"No" %></td>
+            <td><a style="text-decoration: none;" href="/admin/edit-user?id=<%=users[index]._id %>">Edit &nbsp; </a><a style="text-decoration: none;" href="/admin/delete-user?id=<%=users[index]._id %>"> &nbsp; Delete</a></td>
+
+        </tr>
+        <%
+    } 
+    }else{
+     %>
+        <tr>
+            <td colspan="5">User Not found</td>
+        </tr>
+  <%} %>
+</table>
+<br><br>
+ <% 
+ for(let j=1;j<=totalPages;j++){
+  %>
+  <a style="text-decoration: none;"  href="?page=<%=j%>">&nbsp;&nbsp;<%=j%></a>
+  <%
+ }
+ %>
+ <br><br>
+ 
+<!-- include footer -->
+<% include("../layouts/_footer.ejs") %>
+<!-- include footer -->
